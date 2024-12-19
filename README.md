@@ -10,6 +10,11 @@ DATABASE_URL=postgres://postgres:{PASSWD}@{IP}/{DB}
 
 You might want to edit the prisma schema to use sqlite if you dont want to use PostgreSQL.
 
+Migrate:
+```bash
+bun db:migrate
+```
+
 run the development server:
 
 ```bash
