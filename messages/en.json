@@ -1,0 +1,31 @@
+{
+  "session": {
+    "register": {
+      "title": "Sign up",
+      "description": "Please enter your username, email and password",
+      "email": "Email",
+      "alternative": "Already have an account?"
+    },
+    "login": {
+      "title": "Login",
+      "description": "Please enter your email and password",
+      "alternative": "Don't have an account?"
+    },
+    "logout": "Logout",
+    "username_description": "Please enter your username",
+    "email": "Email",
+    "email_description": "Please enter your email",
+    "password": "Password",
+    "password_description": "Please enter your password",
+    "username": "Username",
+    "submit": "Submit"
+  },
+  "servers": {
+    "create": {
+      "title": "Create a server",
+      "get_started": "Get started by creating a server",
+      "name_description": "Please enter the server name",
+      "submit": "Submit"
+    }
+  }
+}

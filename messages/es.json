@@ -1,0 +1,21 @@
+{
+  "session": {
+    "register": {
+      "title": "Registrarse",
+      "description": "Por favor, introduzca su nombre de usuario, correo electrónico y contraseña",
+      "email": "Correo electrónico"
+    },
+    "login": {
+      "title": "Iniciar sesión",
+      "description": "Por favor, introduzca su correo electrónico y contraseña"
+    },
+    "logout": "Cerrar sesión",
+    "username_description": "Por favor, introduzca su nombre de usuario",
+    "email": "Correo electrónico",
+    "email_description": "Por favor, introduzca su correo electrónico",
+    "password": "Contraseña",
+    "password_description": "Por favor, introduzca su contraseña",
+    "username": "Nombre de usuario",
+    "submit": "Enviar"
+  }
+}

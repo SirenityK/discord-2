@@ -1,0 +1,85 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator zod {
+  provider              = "zod-prisma"
+  output                = "./zod"
+  relationModel         = true
+  modelCase             = "PascalCase"
+  modelSuffix           = "Model"
+  useDecimalJs          = true
+  imports               = schemas
+  prismaJsonNullability = true
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       String @id @default(cuid()) /// @zod.cuid()
+  name     String /// @zod.min(8, { message: "Your username must be at least 8 characters long" }).trim()
+  email    String @unique /// @zod.email()
+  password String /// @zod.custom(imports.passwordSchema)
+
+  servers  Server[]
+  memberOn Member[]
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Server {
+  id             String @id @default(uuid()) /// @zod.uuid()
+  imageExtension String /// zod.custom(imports.imageExtension)
+  name           String @unique /// @zod.min(8, { message: "The server name must be at least 8 characters long" }).trim()
+  ownerId        String
+  owner          User   @relation(fields: [ownerId], references: [id])
+
+  members  Member[]
+  channels Channel[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Member {
+  id       String @id @default(uuid()) /// @zod.uuid()
+  userId   String
+  serverId String
+
+  user   User   @relation(fields: [userId], references: [id])
+  server Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
+
+  joinedAt DateTime @default(now())
+}
+
+model Channel {
+  id       String  @id @default(uuid()) /// @zod.uuid()
+  name     String /// @zod.min(1, { message: "The channel name must be at least 1 character long" }).trim()
+  serverId String
+  default  Boolean @default(false)
+
+  server   Server    @relation(fields: [serverId], references: [id])
+  messages Message[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id        String  @id @default(uuid()) /// @zod.uuid()
+  content   String /// @zod.min(1).trim()
+  channelId String
+  authorId  String
+  edited    Boolean @default(false)
+
+  channel Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+  author  User    @relation(fields: [authorId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
