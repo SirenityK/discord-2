@@ -31,6 +31,13 @@ export default function PostMessage({
         method="post"
         onSubmit={form.handleSubmit(async (data) => {
           const resp = await postMessage(toFormData(data));
+          if ("errors" in resp) {
+            // TODO: Handle error messages
+            window.alert("An error occurred while posting the message");
+            return;
+          }
+
+          form.reset();
           router.refresh();
         })}
       >
